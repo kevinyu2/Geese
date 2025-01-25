@@ -20,10 +20,15 @@ if __name__ == "__main__":
         else :
             modules.append(bpm.split('-- ')[1])
 
+    # Custom gene list
+    with open(sys.argv[2], "r") as file:
+        background_list = [line.strip() for line in file]
+
+
     # Enrichment Cutoff
     cutoff = 500
-    if (len(sys.argv) > 2) :
-        cutoff = int(sys.argv[2])
+    if (len(sys.argv) > 3) :
+        cutoff = int(sys.argv[3])
 
     # p-value used is 0.05
     # Tally info, prep BPM calcs
@@ -31,7 +36,7 @@ if __name__ == "__main__":
     modules_enriched = 0
     for i, module in enumerate(modules) :
         module_GO_IDs.append([])
-        df = gp.profile(organism='scerevisiae', query= module)
+        df = gp.profile(organism='scerevisiae', query= module, background = background_list, significance_threshold_method='fdr')
 
         # Add if below the cutoff
         to_add = False

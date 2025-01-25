@@ -16,7 +16,6 @@ def read_every_third_line(file_path):
     with open(file_path, 'r', encoding=encoding) as file:
         for i, line in enumerate(file):
             if i % 4 == 3 and not "Not found" in line:
-                print(line)
                 lines.append(float(line.strip()))
     return lines
 
@@ -24,7 +23,6 @@ def read_every_third_line(file_path):
 def plot_histograms(data1, data2, system, c, null, bins=30):
     plt.figure(figsize=(10, 6))
     null = null.capitalize()
-    system = system.capitalize()
 
     # Create the histograms
     plt.hist(data1, bins=bins, alpha=0.5, label=f'{system} {c}', color='blue', density = True)
@@ -56,7 +54,17 @@ output_dir = sys.argv[4]
 file1_path = sys.argv[5]
 file2_path = sys.argv[6]
 
-output_name = output_dir + 'spell_correlations_'  + system + c + '_' + null + '.png'
+if "ns" in system[-2:] :
+    system = system[:-2]
+    output_name = output_dir + 'spell_correlations_'  + system + c + '_nosquare_' + null + '.png'
+    system = system.capitalize()
+    system = system + " (Not Squared)"
+
+else :
+    output_name = output_dir + 'spell_correlations_'  + system + c + '_' + null + '.png'
+    system = system.capitalize()
+    system = system + " (Squared)"
+
 
 data1 = read_every_third_line(file1_path)
 data2 = read_every_third_line(file2_path)
