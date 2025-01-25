@@ -17,7 +17,7 @@ Example :
 
 Annotates BPMs with gi scores, GO enrichment, and the single mutant fitnesses. Outputs to stdout
 
-Usage : python ./beautify_bpm.py [BPM File] [Genetic Interaction File] [SMF File] {Count of GO Terms}
+Usage : python ./beautify_bpm.py [BPM File] [Genetic Interaction File] [SMF File] [Gene List] {Count of GO Terms}
 
 Example :
 ```python ./beautify_bpm.py ./Output/min_90.bpm ./Data/min_0.gi ./smf.txt 5 > Output/min_90.bbpm```
@@ -26,7 +26,7 @@ Example :
 
 Generates enrichment counting data for a set of BPMs. Outputs to stdout
 
-Usage : python ./encrichment.py [BPM File]
+Usage : python ./encrichment.py [BPM File] [Gene List] {Count of GO Terms}
 
 Example :
 ```python ./enrichment.py ./Output/min_90.bpm```
@@ -49,6 +49,15 @@ Usage : python ./average_size.py [BPM File]
 Example :
 ```python ./average_size.py ./Output/log_90.bpm```
 
+### uniqueness.py
+
+Compares multiple BPM files to indentify how unique each one is over a changing similarity index
+
+Usage : python ./uniqueness.py [List of BPM Files] [Output File]
+
+Example :
+```python ./uniqueness.py ./Output/mult_80.bpm ./Output/min_70.bpm ./Output/log_80.bpm ./Output/unique.csv```
+
 ## SPELL Pipeline
 
 ### randomize_within_file.py
@@ -58,7 +67,7 @@ Randomizes a BPM file in two different ways: either randomizes each gene or shuf
 Usage : python ./random_within_file.py [BPM File] {List of Genes}
 
 Example :
-```python ./randomize_within_file.py ./Output/mult_80.bpm ./Data/cluster0 > Output/randomized_mult_80.bpm```
+```python ./randomize_within_file.py ./Output/mult_80.bpm ./Data/cluster0 > Output/randomized_mult80.bpm```
 
 ### spell_correlation.py
 

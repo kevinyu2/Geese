@@ -42,10 +42,14 @@ if __name__ == "__main__":
     # Enrichment Cutoff
     cutoff = 500
 
+    # Custom gene list
+    with open(sys.argv[4], "r") as file:
+        background_list = [line.strip() for line in file]
+
     # number of terms max
     count = 5
-    if (len(sys.argv) > 5) :
-        count = int(sys.argv[4])
+    if (len(sys.argv) > 6) :
+        count = int(sys.argv[5])
 
 
     for i,module in enumerate(modules) :
@@ -55,7 +59,7 @@ if __name__ == "__main__":
             print ("BPM ", int((i/2) + 1), ": ")
         
         # Get enriched, sort by p_value, report top 5
-        df = gp.profile(organism='scerevisiae', query= module)
+        df = gp.profile(organism='scerevisiae', query= module, background=background_list, significance_threshold_method='fdr')
         p_values_all = df.p_value.tolist()
         sizes_all = df.term_size.tolist()
         go_labels_all = df.name.tolist()
